@@ -201,10 +201,13 @@ find_main_ip(NetInterface, Type) ->
                     case Name of
                         "eth" ++ _ -> true;
                         "en" ++ _ -> true;
+                        "vpn" ++ _ ->true;
+                           "wlp" ++ _ ->true;
                         _ -> false
                     end
                 end,
                 proplists:get_keys(All)),
+             erlang:display(IFaces),
             find_main_ip(lists:sort(IFaces), All, Type);
         _ ->
             find_main_ip([NetInterface], All, Type)   
