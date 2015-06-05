@@ -58,12 +58,17 @@ nkcb_handle_call({'$nksip_uac_auto_register_start_register', RegId, Uri, Opts},
         Expires -> 
             Opts2 = Opts1
     end,
+    Interval=case nksip_lib:get_value(interval, Opts) of
+        undefined ->  300;
+        X ->  X
+        end,
+
     Reg = #sipreg{
         id = RegId,
         ruri = Uri,
         opts = Opts2,
         call_id = CallId,
-        interval = Expires,
+        interval = Interval,
         from = From,
         cseq = nksip_config:cseq(),
         next = 0,
