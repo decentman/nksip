@@ -122,12 +122,16 @@ nkcb_handle_call({'$nksip_uac_auto_register_start_ping', PingId, Uri, Opts},
         Expires -> 
             Opts2 = nksip_lib:delete(Opts1, expires)
     end,
+    Interval=case nksip_lib:get_value(interval, Opts) of
+        undefined ->  5;
+        X ->  X
+    end,
     Ping = #sipreg{
         id = PingId,
         ruri = Uri,
         opts = Opts2,
         call_id = CallId,
-        interval = Expires,
+        interval = Interval,
         from = From,
         cseq = nksip_config:cseq(),
         next = 0,

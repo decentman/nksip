@@ -146,6 +146,7 @@ make_cache() ->
                     element(2, re:compile(?RE_CONTENT_LENGTH, [caseless]))},
                 {app_config, AppConfig}
             ],
+	    %erlang:display(CacheConfig),
             make_cache(CacheConfig),
             ok;
         {error, Error} ->
